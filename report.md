@@ -34,7 +34,7 @@ Now I'm sure all calculations are performed correctly and the right values are i
 
 ## Customize app
 
-I came up with the idea of making some app settings customisable to solve a problem with the `advance_time` function. The app's *system date* is stored in a txt file and the app uses this date as the current date for all date-related functions. Somehow, the app needs to know whether `advance_time` is enabled or not to ensure that the *system date* can be set to *today* when `advance_time` is disabled. Otherwise, the *system date* remains the same until it is manually set to *date* using the `reset` command. 
+I came up with the idea of making some app settings customisable to solve a problem with the `advance_time` function. The app's *system date* is stored in a txt file and the app uses this date as the current date for all date-related functions. Somehow, the app needs to know whether `advance_time` is enabled or not to ensure that the *system date* can be set to *today* when `advance_time` is disabled. Otherwise, the *system date* remains the same until it is manually set to *today* using the `reset` command. 
 
 To achieve this, I created a settings file in json format to store the current `advance_time` setting (`true` or `false`). Each time operations in the app are performed, the settings file is read to ensure the correct action is performed. I chose a json file because it uses key-value pairs and can be read as a Python dictionary using the *json* module. 
 
