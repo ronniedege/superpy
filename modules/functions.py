@@ -24,7 +24,7 @@ def string_to_date(date:str):
     try: 
         return datetime.strptime(date, '%Y-%m-%d').date()
     except ValueError as err:
-        print(f'The following error has ocurred:', err)
+        print(f'The following error has occurred:', err)
 
 
 def date_to_string(date:datetime):
@@ -33,11 +33,11 @@ def date_to_string(date:datetime):
     try: 
         return date.strftime('%Y-%m-%d')
     except ValueError as err:
-        print(f'The following error has ocurred:', err)
+        print(f'The following error has occurred:', err)
 
 
 def read_system_date():
-     """Reads the current 'sytem' date from today.txt and returns data as datetime object in the following format: yyyy-mm-dd
+     """Reads the current 'system' date from today.txt and returns data as datetime object in the following format: yyyy-mm-dd
      """
      with open(TODAY_TXT, 'r') as file:
           fetched_date = file.readline()
@@ -123,7 +123,7 @@ def get_grocery_list()-> list:
 
 def check_product_names(word:str):
     """Validator function that checks the given string and compares it with existing strings in groceries.csv and bought.csv. The list of strings
-    is collected via get_grocery_list(). The process module from thefuzz compares the given string with those in de list from get_grocery_list(). 
+    is collected via get_grocery_list(). The process module from thefuzz compares the given string with those in the list from get_grocery_list(). 
     When no exact match is found, user input is asked via product_name_validator()
     """
     original_word = word.lower()
@@ -154,7 +154,7 @@ def product_name_validator(original_word:str, checked_word:str):
 
 
 def buy_product(product_name:str, price:float, expiration_date):
-    """Adds a product (in lower case) to the bought.csv file by:
+    """Adds a product (in lowercase) to the bought.csv file by:
     - validating the product name
     - generating a buy id
     - putting all values in a list
@@ -244,7 +244,7 @@ def sell_product(name:str, price:float):
 
 # return all bought ids from the sold.csv file as list, with optional date argument to filter by date
 def get_bought_ids(date:datetime=None)-> list:
-    """Reads the sold.csv file and returns al bougt id's as a list. When a date is passed only bought id's smaller or equal to the given 
+    """Reads the sold.csv file and returns all bougt id's as a list. When a date is passed only bought id's smaller or equal to the given 
     date will be added to the list. This is important for generating inventory reports. 
     """
     csv_data = read_csv_dict(SOLD_CSV)
@@ -263,7 +263,7 @@ def store_sold_item(bought_id:int, product_name:str, sell_price:float):
     """Writes the sold item to the sold.csv file after:
     - checking and validating the system date
     - generating an id
-    - puting all row items in a list
+    - putting all row items in a list
     After updating the csv file a table containing data from the last row from that file will be printed. 
     """
     validate_dates()

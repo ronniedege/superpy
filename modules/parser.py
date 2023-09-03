@@ -34,13 +34,13 @@ def validate_expiration_date(date):
 
 # amount of days should be type int and greater then 0
 def validate_adv_time(days):
-    """Validator for the advance_time option. The data type must me int and the value must be greater then 0. 
+    """Validator for the advance_time option. The data type must be int and the value must be greater than 0. 
     """
     try:
         if int(days) > 0:
             return int(days)
         ui_sounds('error')
-        raise argparse.ArgumentTypeError('The amount of days should be greater then 0.')
+        raise argparse.ArgumentTypeError('The amount of days should be greater than 0.')
     except ValueError:
         ui_sounds('error')
         raise argparse.ArgumentTypeError(f'Invalid data type -> "{days}". Type should be int.')
@@ -56,7 +56,7 @@ def validate_product_name(name:str):
         raise argparse.ArgumentTypeError(f'Product name {name} is invalid. The string must only contain alphanumeric characters. Spaces and dashes and ampersands are allowed')
 
 def init_parser():
-    """Creates al parsers, subparsers and arguments. Extensive help is included. 
+    """Creates all parsers, subparsers and arguments. Extensive help is included. 
     """
     # create parser instance
     parser = argparse.ArgumentParser(
@@ -98,7 +98,7 @@ def init_parser():
     #sound options
     sound = config.add_parser(
         'sound',
-        help=f"""Sets the sound options. When enabled the application will give audiovisual feedback when actions are performed or exeptions are encoutered.
+        help=f"""Sets the sound options. When enabled the application will give audiovisual feedback when actions are performed or exceptions are encountered.
         Use --enable or --disable to turn it on or off. The --theme flag is used to set the sound theme. Available themes:{themes()}""",
         argument_default=None)
     sound = sound.add_mutually_exclusive_group(required=True)
@@ -225,7 +225,7 @@ def init_parser():
         '--price', 
         type=float, 
         required=True, 
-        help='Enter the selling price of the prodyct as float.')
+        help='Enter the selling price of the product as float.')
 
     # reporting
     report = subparser.add_parser('report', help='Generate reports')
@@ -244,7 +244,7 @@ def init_parser():
         '--product',
         required=False,
         type = validate_product_name,
-        help='Optional product filter. Enter a product name to get details about the product. Without this parameter an aggregated overvieuw will be created')
+        help='Optional product filter. Enter a product name to get details about the product. Without this parameter an aggregated overview will be created')
     inventory.add_argument(
         '--type',
         required=False,

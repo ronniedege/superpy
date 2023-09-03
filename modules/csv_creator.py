@@ -2,7 +2,7 @@
 
 Source dataset: https://www.kaggle.com/datasets/heeraldedhia/groceries-dataset?resource=download
 
-The original dataset has been modifyd and merged with several other datasets
+The original dataset has been modified and merged with several other datasets
 
 The dataset can be downloaded from the source: https://raw.githubusercontent.com/ronniebax/static/main/data/groceries.csv
 """
@@ -89,7 +89,7 @@ def grocery_names(items:int=None)-> list:
     Parameters
     ----------
     items: int, optional
-        Provide the amount of unique items in the list. When a vualue is passed the list will be shuffled
+        Provide the amount of unique items in the list. When a value is passed the list will be shuffled
     """
     check_data_files()
     with open(GROCERY_NAMES, 'r') as g_file:
@@ -144,9 +144,9 @@ def generate_csv(start_date, csv_rows:int=500, items:int=None):
 
 
 def generate_csv_sold(date, rows):
-    """Reads the bought.csv file and iterates trough it. 
-    A new row is written to sold.csv when the sell date is greater then the buying date,
-    and the expiration date is greater than the sell date. The bought.csv will be iterated untill the
+    """Reads the bought.csv file and iterates through it. 
+    A new row is written to sold.csv when the sell date is greater than the buying date,
+    and the expiration date is greater than the sell date. The bought.csv will be iterated until the
     amount of rows reaches 88% of the amount of rows in bought.csv. 
     """
     header = SOLD_HEADER.keys()
@@ -158,7 +158,7 @@ def generate_csv_sold(date, rows):
         x = 0
         output_amount = rows * 0.88 # 88% of the bought items are sold
         today = string_to_date(get_today())
-        while x < 5: # while loop for iterating trough file multiple times. Capped at 5 times to prevent endless ioops
+        while x < 5: # while loop for iterating trough file multiple times. Capped at 5 times to prevent endless loops
             with open(CSV_BOUGHT) as bought_file:
                 reader = csv.DictReader(bought_file)
                 for row in reader:

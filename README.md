@@ -152,7 +152,7 @@ To generate a revenue report the start and end date must be provided as argument
 
 The report will show the total revenue per product and the total revenue per day, within the given time frame. 
 
-The optional export contains all raw data from within the given time frame. No grouping or calcultions will be done.
+The optional export contains all raw data from within the given time frame. No grouping or calculations will be done.
 
 Example command for generating a revenue report:
 
@@ -168,7 +168,7 @@ To generate a profit report the start and end date must be provided as arguments
 - `--end` | The mandatory end date of the report as YYYY-MM-DD. Must be greater then or equal to the start date
 - `--export` | Optional argument to export the report data to a csv file
 
-The generated report gives an overview in two perpectives:
+The generated report gives an overview in two perspectives:
 
 1. Profit based on total revenue minus the total costs over the given time frame
 2. Profit based on the sold items only, per product

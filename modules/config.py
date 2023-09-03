@@ -36,7 +36,7 @@ def ui_sounds(message_type:str):
     Parameters
     ----------
     message_type: str
-        one of the follwing strings have to be passed as arguments
+        one of the following strings have to be passed as arguments
         - info
         - warning
         - error
@@ -104,7 +104,7 @@ def write_config(sound:bool=None, printer:bool=None, sound_theme:str=None, adv_t
         statement_printer(f'The name validation function is set to {read_config()["validate_names"]}.', sound='success')
 
 
-# takes the header dictonary, removes underscores and adds captions.
+# takes the header dictionary, removes underscores and adds captions.
 def clean_header(header:dict)-> dict:
     """Takes a dictionary and converts the keys:
     - replacing '_' by a space
@@ -116,8 +116,8 @@ def clean_header(header:dict)-> dict:
 
 
 def display_config():
-    """Prints the keys and values from settings.json as a table. The advance time value is left out, since this option is a funtion by itself
-    and no part of te config options. 
+    """Prints the keys and values from settings.json as a table. The advance time value is left out, since this option is a function by itself
+    and no part of the config options. 
     """
     current_config = read_config()
     x = PrettyTable()

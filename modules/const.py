@@ -15,7 +15,7 @@ GROCERY_URL = 'https://raw.githubusercontent.com/ronniebax/static/main/data/groc
 EXPORT_DIR = os.path.join(os.getcwd(), 'export')
 
 
- # the header for the bought.csv file as dict with align parameter (l/r) as values to be used to set the alignment for the prettytable function
+ # The header for the bought.csv file as dict with align parameter (l/r) as values to be used to set the alignment for the prettytable function
 BOUGHT_HEADER = {
     'id': 'l',
     'product_name': 'l',

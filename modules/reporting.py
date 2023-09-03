@@ -15,7 +15,7 @@ def compare_dates(start_date, end_date):
 
 
 def get_inventory_report(option:str='today', date=None, export:bool=None, product:str=None, file_type:str=None):
-    """Helper funtion for making the inventory report on the right date. 
+    """Helper function for making the inventory report on the right date. 
     It calculates the right date based on the current system date and passes the on to the make_inventory_table() function
     """
     now = read_system_date()
@@ -35,7 +35,7 @@ def make_inventory_table(date, export:bool=None, product:str=None, file_type:str
     """
     clear_console()
     logo()
-    index_list = get_bought_ids(date) # get all id's sold before or on the given date
+    index_list = get_bought_ids(date) # get all ids sold before or on the given date
     df = pd.read_csv(BOUGHT_CSV) 
 
     # assigning datetime datatype to columns
@@ -43,7 +43,7 @@ def make_inventory_table(date, export:bool=None, product:str=None, file_type:str
     df['expiration_date'] = pd.to_datetime(df['expiration_date']).dt.date 
     
     df = df[~df['id'].isin(index_list)] # leave out items from index_list (the sold items)
-    df = df[(df['expiration_date']>= date)] # expiration date greater of equal to given date
+    df = df[(df['expiration_date']>= date)] # expiration date greater or equal to given date
     df = df[(df['buy_date']<= date)] # buy date smaller or equal to given date
 
     df = df.drop('id', axis=1) # remove id column from report
@@ -75,7 +75,7 @@ def make_inventory_table(date, export:bool=None, product:str=None, file_type:str
         'price': 'Total value',
     })
 
-    # pivate table to summarize data
+    # pivot table to summarize data
     summary = pd.pivot_table(
         df,
         values=['Total value','Total items'], 
@@ -132,7 +132,7 @@ def get_revenue_report(start_date, end_date, export:bool=None, profit:bool=None,
         else:    
             df.to_csv(filename, index=False)
     
-    # new culumn and rename other columns for display purposes
+    # new column and rename other columns for display purposes
     df = df.assign(new1='')
     df = df.rename(columns={
         'product_name': 'Product name',
@@ -180,7 +180,7 @@ def get_revenue_report(start_date, end_date, export:bool=None, profit:bool=None,
 
 
 def get_profit_report(start_date, end_date, export:bool=None, file_type:str='csv'):
-    """Prints the profit details over the given time frame. The generated report gives an overview in two perpectives:
+    """Prints the profit details over the given time frame. The generated report gives an overview in two perspectives:
     - Profit based on total revenue minus the total costs over the given time frame
     - Profit based on the sold items only, per product
 
@@ -193,7 +193,7 @@ def get_profit_report(start_date, end_date, export:bool=None, file_type:str='csv
     df = pd.read_csv(BOUGHT_CSV)
     df_bought = df
 
-    # assingn date value to columns
+    # assign date value to columns
     df['buy_date'] = pd.to_datetime(df['buy_date']).dt.date 
 
     # set date filter to given time frame

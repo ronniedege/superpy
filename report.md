@@ -26,7 +26,7 @@ To prevent case issues all names are converted to lower case everywhere.
 
 Working on the app, I implemented the [*prettytable*](https://pypi.org/project/prettytable/) package for printing bought and sold data in a table. This package does a good job for display purposes, but later, when I worked on the reporting functions, it was difficult to group data properly
 
-To group data and perform quick calculations, I often use pivot tables in Excel. Pivot tables are ideal for the reporting usecase in the SuperPy app. Not wanting to reinvent the wheel, I searched the internet for a way to use pivot tables in Python.  I soon found out that using dataframes, via the *pandas* package, is the best way to achieve this, so I implemented *pandas* in the app.
+To group data and perform quick calculations, I often use pivot tables in Excel. Pivot tables are ideal for the reporting use case in the SuperPy app. Not wanting to reinvent the wheel, I searched the internet for a way to use pivot tables in Python.  I soon found out that using dataframes, via the *pandas* package, is the best way to achieve this, so I implemented *pandas* in the app.
 
 I found *pandas* not very intuitive and it took me a while to understand the syntax, but eventually I got everything working the way I wanted it to. As a bonus, *pandas* has powerful export options that I used to add functionality for exporting reporting data to csv and Excel files. The latter by adding the *openpyxl* package. 
 
