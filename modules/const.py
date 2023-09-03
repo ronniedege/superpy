@@ -15,7 +15,7 @@ GROCERY_URL = 'https://raw.githubusercontent.com/ronniebax/static/main/data/groc
 EXPORT_DIR = os.path.join(os.getcwd(), 'export')
 
 
- # the header for the bought.csv file as dict with align parameter (l/r) as values
+ # the header for the bought.csv file as dict with align parameter (l/r) as values to be used to set the alignment for the prettytable function
 BOUGHT_HEADER = {
     'id': 'l',
     'product_name': 'l',
@@ -46,13 +46,16 @@ CONFIG_DATA = {
 
 }
 
-# get the current date (today) as string
+
 def get_today():
+    """Gets the current date and returns it as a string
+    """
     return date.today().strftime('%Y-%m-%d')
 
 
-# writes the provided data to the given csv file
 def write_csv(csv_file, data):
+    """Writes the provided data to the given csv file
+    """
     try:
         with open(csv_file, 'a') as file:
             writer = csv.writer(file, delimiter=',')
@@ -61,8 +64,10 @@ def write_csv(csv_file, data):
         print(f'The following error has occurred: {e}.') 
         sys.exit(1)
 
-# writes the given date to today.txt
+
 def write_date(txt_file, date):
+    """Writes the given date to today.txt
+    """
     try:
         with open(txt_file, 'w') as file:
             file.write(date)
@@ -71,8 +76,9 @@ def write_date(txt_file, date):
         sys.exit(1)
 
 
-# checks if data directory and data files exist and create them if not present
 def check_data_files():
+    """Checks if data directory and data files exist and create them if not present
+    """
     if not os.path.exists(DATA_DIR):
         try: 
             os.makedirs(DATA_DIR)
@@ -111,8 +117,9 @@ def check_data_files():
             print(f'The following error has occurred: {e}.')
 
 
-# creates string from epoch time
 def set_timestamp():
+    """Creates string from epoch time and removes dots. The string can be used as unique value for naming report exports
+    """
     return str(time.time()).replace('.', '')
  
 

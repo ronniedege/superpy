@@ -63,6 +63,8 @@ def read_config()-> dict:
     
 
 def write_config(sound:bool=None, printer:bool=None, sound_theme:str=None, adv_time:bool=None, date_alert:bool=None, validate_names:bool=None):
+    """Saves the configuration in settings.json
+    """
     def save_config():
         with open(SETTINGS, 'w') as json_file:
             json.dump(data, json_file, indent=4)

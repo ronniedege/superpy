@@ -13,6 +13,9 @@ __human_name__ = "superpy"
 
 # Your code below this line.
 def main():
+    """
+    Main function that calls the right functions after an argparge command is given. 
+    """
 
     # initialize parser
     cli = init_parser()
