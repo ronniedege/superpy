@@ -33,17 +33,20 @@ def validate_expiration_date(date):
 
 
 # amount of days should be type int and greater then 0
-def validate_adv_time(days):
-    """Validator for the advance_time option. The data type must be int and the value must be greater than 0. 
+def validate_amount(amount):
+    """Validator for the amount argument. The data type must be int and the value must be greater than 0. 
     """
     try:
-        if int(days) > 0:
-            return int(days)
+        if int(amount) > 0:
+            return int(amount)
         ui_sounds('error')
-        raise argparse.ArgumentTypeError('The amount of days should be greater than 0.')
+        raise argparse.ArgumentTypeError('The entered amount should be greater than 0.')
     except ValueError:
         ui_sounds('error')
-        raise argparse.ArgumentTypeError(f'Invalid data type -> "{days}". Type should be int.')
+        raise argparse.ArgumentTypeError(f'Invalid data type -> "{amount}". Type should be int.')
+    
+
+
     
 
 # regex validation to check if the sting contains alphanumeric characters. Spaces and dashes are also accepted
@@ -71,7 +74,7 @@ def init_parser():
     advance_time = subparser.add_parser('advance_time', help='Function to advance time in a number of days.')
     advance_time.add_argument(
         '--days',
-        type=validate_adv_time, 
+        type=validate_amount, 
         required=True, 
         help='Enter the number of days to advance as integer.'
         )
@@ -213,6 +216,14 @@ def init_parser():
         required=True,
         metavar='YYYY-MM-DD', 
         help='Enter the expiration date in the following format: YYYY-MM-DD.')
+    buy.add_argument(
+        '--amount', 
+        type=validate_amount,
+        nargs='?',
+        const=1,
+        default=1,
+        required=False,
+        help='Enter the optinal amount of items as int')
 
     # sell products
     sell = subparser.add_parser('sell', help='Function to register sold products.')

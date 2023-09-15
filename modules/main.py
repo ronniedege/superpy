@@ -61,7 +61,7 @@ def main():
 
     # buying
     elif cli.command == 'buy':
-        buy_product(cli.product_name, cli.price, cli.expiration_date)
+        buy_product(cli.product_name, cli.price, cli.expiration_date, cli.amount)
 
     # selling
     elif cli.command == 'sell':

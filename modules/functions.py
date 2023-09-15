@@ -153,7 +153,7 @@ def product_name_validator(original_word:str, checked_word:str):
         return product_name_validator(original_word, checked_word)
 
 
-def buy_product(product_name:str, price:float, expiration_date):
+def buy_product(product_name:str, price:float, expiration_date, amount:int=1):
     """Adds a product (in lowercase) to the bought.csv file by:
     - validating the product name
     - generating a buy id
@@ -162,13 +162,16 @@ def buy_product(product_name:str, price:float, expiration_date):
     """
     validate_dates()
     validated_name = check_product_names(product_name)
+    date = read_system_date()
     buy_id = generate_id(BOUGHT_CSV)
-    data = [buy_id, validated_name.lower(), read_system_date(), price, expiration_date]
-    write_csv(BOUGHT_CSV, data)
+    for x in range(amount):
+        data = [buy_id, validated_name.lower(), date, price, expiration_date]
+        write_csv(BOUGHT_CSV, data)
+        buy_id +=1
     table, table_csv = table_printer(BOUGHT_HEADER, get_last_line(BOUGHT_CSV))
     clear_console()
     logo()
-    statement_printer('===> The following item has successfully been added to the database:', sleep=0.009, sound='success')
+    statement_printer(f'===> The following item has successfully been added to the database {amount} time(s):', sleep=0.009, sound='success')
     print(table,'\n')
 
 
