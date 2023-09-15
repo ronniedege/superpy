@@ -125,7 +125,7 @@ def generate_csv(start_date, csv_rows:int=500, items:int=None):
         items = 10
     header = BOUGHT_HEADER.keys()
     ids = 1
-    with open(CSV_BOUGHT, 'w') as file:
+    with open(CSV_BOUGHT, 'w', newline='') as file:
         writer = csv.writer(file, delimiter=',')
         writer.writerow(header)
         counter = 0
@@ -151,7 +151,7 @@ def generate_csv_sold(date, rows):
     """
     header = SOLD_HEADER.keys()
     ids = 1
-    with open(CSV_SOLD, 'w') as outfile:
+    with open(CSV_SOLD, 'w', newline='') as outfile:
         writer = csv.writer(outfile, delimiter=',')
         writer.writerow(header)
         counter = 0

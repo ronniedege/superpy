@@ -57,7 +57,7 @@ def write_csv(csv_file, data):
     """Writes the provided data to the given csv file
     """
     try:
-        with open(csv_file, 'a') as file:
+        with open(csv_file, 'a', newline='') as file:
             writer = csv.writer(file, delimiter=',')
             writer.writerow(data)
     except Exception as e:
