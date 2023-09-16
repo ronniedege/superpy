@@ -237,6 +237,14 @@ def init_parser():
         type=float, 
         required=True, 
         help='Enter the selling price of the product as float.')
+    sell.add_argument(
+        '--amount', 
+        type=validate_amount,
+        nargs='?',
+        const=1,
+        default=1,
+        required=False,
+        help='Enter the optinal amount of items as int')
 
     # reporting
     report = subparser.add_parser('report', help='Generate reports')

@@ -65,7 +65,7 @@ def main():
 
     # selling
     elif cli.command == 'sell':
-        sell_product(cli.product_name, cli.price)
+        sell_product(cli.product_name, cli.price, cli.amount)
 
     # reporting
     elif cli.command == 'report':

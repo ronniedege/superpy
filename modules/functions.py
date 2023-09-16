@@ -154,7 +154,7 @@ def product_name_validator(original_word:str, checked_word:str):
 
 
 def buy_product(product_name:str, price:float, expiration_date, amount:int=1):
-    """Adds a product (in lowercase) to the bought.csv file by:
+    """Adds a product (in lowercase) to the bought.csv file the amount of times passed via the amount argument by:
     - validating the product name
     - generating a buy id
     - putting all values in a list
@@ -216,33 +216,50 @@ def read_csv_dict(csv_file)-> dict:
         return list(reader)
 
 
-def check_bought_items(product:str, id:list)-> dict:
+def check_bought_items(product:str, id:list, amount:int)-> dict:
     """Checks the bought.csv file and returns a row when
     - the given product exits in bought.csv
     - the row id is not already in the sold.csv (bought id)
     - the buy dat is smaller or equal to the system date
     _ the expiration date is greater then, or equal to the system date
+    If the amount of available items is less than the given amount, a message containing the available amount will be printed
     When a product is unavailable a message will be printed
     """
     system_date = read_system_date()
     csv_data = read_csv_dict(BOUGHT_CSV)
+    result = []
     for row in csv_data:
         if product.lower() == row['product_name'].lower() and row['id'] not in id and string_to_date(row['buy_date']) <= system_date and string_to_date(row['expiration_date']) >= system_date:
-            return row
-    if product.lower() == 'soup':
+            result.append(row)
+            if len(result) == amount:
+                return result
+    if len(result) != 0:
+        statement_printer(f'Product {product} is only available {len(result)} times at this moment', sound='error')
+        return
+    elif product.lower() == 'soup':
         statement_printer('No soup for you! NEXT!!', space=1, h_space=True, sound='warning') # couldn't resist a Seinfeld reference
         return 
-    statement_printer(f'Product {product} is not available at this moment', sound='error')
-    return 
+    else:
+        statement_printer(f'Product {product} is not available at this moment', sound='error')
+        return 
 
 
-def sell_product(name:str, price:float):
-    """Function for checking if a product name is valid and the product is available for sale. Calls the store function when the item is available
+def sell_product(name:str, price:float, amount:int=1):
+    """Function for checking if a product name is valid and the product is available for sale. Calls the store function when the item is available.
+    After updating the csv file a table containing data from the last row from that file will be printed. 
     """
     validated_name = check_product_names(name)
-    available_item = check_bought_items(validated_name, get_bought_ids())
+    available_item = check_bought_items(validated_name, get_bought_ids(), amount)
     if available_item:
-        store_sold_item(available_item['id'], validated_name, price)
+        count = 0
+        for item in available_item:
+            store_sold_item(item['id'], validated_name, price)
+            count +=1
+        table, table_csv = table_printer(SOLD_HEADER, get_last_line(SOLD_CSV))
+        clear_console()
+        logo()
+        statement_printer(f'===> The following item has successfully been registered as a sale {count} time(s):', sleep=0.009, sound='success')
+        print(table,'\n')
 
 
 # return all bought ids from the sold.csv file as list, with optional date argument to filter by date
@@ -267,14 +284,9 @@ def store_sold_item(bought_id:int, product_name:str, sell_price:float):
     - checking and validating the system date
     - generating an id
     - putting all row items in a list
-    After updating the csv file a table containing data from the last row from that file will be printed. 
     """
     validate_dates()
     sell_id = generate_id(SOLD_CSV)
     data = [sell_id, bought_id, product_name.lower(), read_system_date(), sell_price]
     write_csv(SOLD_CSV, data)
-    table, table_csv = table_printer(SOLD_HEADER, get_last_line(SOLD_CSV))
-    clear_console()
-    logo()
-    statement_printer('===> The following item has successfully been registered as a sale:', sleep=0.009, sound='success')
-    print(table,'\n')
+    
