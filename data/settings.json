@@ -2,7 +2,7 @@
     "sound": true,
     "sound_theme": "material",
     "printer": true,
-    "enable_advance_time": false,
+    "enable_advance_time": true,
     "enable_date_alert": true,
     "validate_names": true
 }

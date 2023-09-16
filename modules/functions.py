@@ -83,13 +83,16 @@ def validate_dates():
             input_validator()
 
 
-def advance_time(days:int):
-    """Shifts the system date with the amount of days that are passed as argument and sets the 'advance_time' parameter 
+def advance_time(days:int, date=None):
+    """Shifts the system date with the amount of days that are passed as argument, or sets the date to a given date (when de date argument is passed) and sets the 'advance_time' parameter 
     in the settings file to True 
     """
     current_date = read_system_date()
-    adv_date = current_date + timedelta(days)
-    new_date = date_to_string(adv_date)
+    if days:
+        adv_date = current_date + timedelta(days)
+        new_date = date_to_string(adv_date)
+    elif date:
+        new_date = date
     write_date(TODAY_TXT, new_date)
     write_config(adv_time=True)
     clear_console()

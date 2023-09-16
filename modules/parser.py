@@ -32,6 +32,19 @@ def validate_expiration_date(date):
     return date
 
 
+def validate_advanced_date(date):
+    """Date validator. Compares the given date with to today's date and raises an error when the given date is smaller
+    than today. 
+    """
+    validate_date(date)
+    today = get_today()
+    if string_to_date(date) < string_to_date(today):
+        ui_sounds('error')
+        msg = f'The date has to be greater than or equal to {today}'
+        raise argparse.ArgumentTypeError(msg)
+    return date
+
+
 # amount of days should be type int and greater then 0
 def validate_amount(amount):
     """Validator for the amount argument. The data type must be int and the value must be greater than 0. 
@@ -44,10 +57,7 @@ def validate_amount(amount):
     except ValueError:
         ui_sounds('error')
         raise argparse.ArgumentTypeError(f'Invalid data type -> "{amount}". Type should be int.')
-    
-
-
-    
+       
 
 # regex validation to check if the sting contains alphanumeric characters. Spaces and dashes are also accepted
 def validate_product_name(name:str):
@@ -71,12 +81,18 @@ def init_parser():
     subparser = parser.add_subparsers(dest='command')
 
     #advance time
-    advance_time = subparser.add_parser('advance_time', help='Function to advance time in a number of days.')
+    advance_time = subparser.add_parser('advance_time', help='Function to advance time in a number of days or to set a certain date')
+    advance_time = advance_time.add_mutually_exclusive_group(required=True)
     advance_time.add_argument(
         '--days',
         type=validate_amount, 
-        required=True, 
         help='Enter the number of days to advance as integer.'
+        )
+    advance_time.add_argument(
+        '--date',
+        type=validate_advanced_date,
+        metavar='YYYY-MM-DD', 
+        help='Sets the date to a custom date. The date has to be greater then or equal to today'
         )
 
     # reset advance time

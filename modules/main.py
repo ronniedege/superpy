@@ -29,7 +29,7 @@ def main():
 
     # advance time functions
     if cli.command == 'advance_time':
-        advance_time(cli.days)
+        advance_time(cli.days, cli.date)
     elif cli.command == 'reset':   
         if cli.date:
             today = string_to_date(get_today())
