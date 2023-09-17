@@ -218,7 +218,7 @@ The following options are available:
 
 #### Sound
 
-Use `-e` | `--enable` to enable audiovisual feedback and `-d` | `--disable` for disabling it. The '`-t`, | `--theme` flag can be used to set the sound theme. Available themes:
+Use `-e` | `--enable` to enable audiovisual feedback and `-d` | `--disable` for disabling it. The '`-t` | `--theme` flag can be used to set the sound theme. Available themes:
 
 - `big-sur`
 - `chime`
@@ -236,7 +236,7 @@ python super.py config sound -t zelda
 
 #### Printer
 
-Via this option the way information in the terminal is printed can be set. When enabled text is printed character by character instead of instantly.  By default this option is enabled but it can be turned off by using the `-d`, | `--disable` flag. It can be enabled again by the `-e`, | `--enable` option. 
+Via this option the way information in the terminal is printed can be set. When enabled text is printed character by character instead of instantly.  By default this option is enabled but it can be turned off by using the `-d` | `--disable` flag. It can be enabled again by the `-e` | `--enable` option. 
 
 Example:
 
@@ -247,7 +247,7 @@ python super.py config printer --enable
 
 #### Alert
 
-When the system date is unequal to the current date an alert will be triggered before selling or buying an item. When enabled the user is asked for confirmation to proceed, or reset the date when dates are unequal. This alert can be disabled by using `-d`, | `--disable` for disabling it, or `-e`, | `--enable` to enable it again. 
+When the system date is unequal to the current date an alert will be triggered before selling or buying an item. When enabled the user is asked for confirmation to proceed, or reset the date when dates are unequal. This alert can be disabled by using `-d` | `--disable` for disabling it, or `-e` | `--enable` to enable it again. 
 
 Example:
 
@@ -259,7 +259,7 @@ python super.py config alert -d
 
 When enabled the validate function will compare the product name entered with items in the grocery database and the previously bought items to prevent typos. For example, when a product named *apple* already exists the program will prompt, *did you mean apple?*, when trying to sell a product named *apples*. 
 
-Use `-e`, | `--enable` or `-d`, | `--disable` to either turn the function on or off. Example:
+Use `-e` | `--enable` or `-d` | `--disable` to either turn the function on or off. Example:
 
 ```bash
 python super.py config validate -e
