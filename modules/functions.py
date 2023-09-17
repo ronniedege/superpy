@@ -1,21 +1,9 @@
 import csv
-from os import system
 from thefuzz import process
-import platform
 from datetime import datetime, timedelta
 from prettytable import PrettyTable
 from .config import statement_printer, write_config, read_config, ui_sounds, clean_header
-from .const import BOUGHT_CSV, SOLD_CSV, TODAY_TXT, BOUGHT_HEADER, SOLD_HEADER, GROCERY_NAMES, write_csv, write_date, get_today, logo
-
-
-def clear_console():
-    """Checks operating platform and clears console window. 
-    """
-    plt = platform.system()
-    if plt == "Windows":
-        system('cls')
-    else: 
-        system("printf '\\33c\\e[3J'")
+from .const import BOUGHT_CSV, SOLD_CSV, TODAY_TXT, BOUGHT_HEADER, SOLD_HEADER, GROCERY_NAMES, write_csv, write_date, get_today, logo, clear_console
 
 
 def string_to_date(date:str):
@@ -237,13 +225,13 @@ def check_bought_items(product:str, id:list, amount:int)-> dict:
             if len(result) == amount:
                 return result
     if len(result) != 0:
-        statement_printer(f'Product {product} is only available {len(result)} times at this moment', sound='error')
+        statement_printer(f'Product {product} is only available {len(result)} times at this moment', sound='error', h_space=True)
         return
     elif product.lower() == 'soup':
         statement_printer('No soup for you! NEXT!!', space=1, h_space=True, sound='warning') # couldn't resist a Seinfeld reference
         return 
     else:
-        statement_printer(f'Product {product} is not available at this moment', sound='error')
+        statement_printer(f'Product {product} is not available at this moment', sound='error', h_space=True)
         return 
 
 

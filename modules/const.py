@@ -1,6 +1,8 @@
 import os, json, csv, sys, time, requests, urllib3
 from datetime import date
 from time import sleep
+import platform
+from os import system
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning) # disable warning when working with local certificate
 
@@ -146,11 +148,21 @@ def set_export_data(name, date, format):
     filename = f'{name}_{date}_{set_timestamp()}.{format}'
     return os.path.join(EXPORT_DIR, filename)
 
-def logo():
+def logo(pause:bool=True):
     """Prints super.py logo from logo.txt as ascii art
     """
     with open('data/logo.txt','r') as file:
         logo = file.read()
         print(logo)
-        sleep(1)
+        if pause:
+            sleep(1)
+
+def clear_console():
+    """Checks operating platform and clears console window. 
+    """
+    plt = platform.system()
+    if plt == "Windows":
+        system('cls')
+    else: 
+        system("printf '\\33c\\e[3J'")
     

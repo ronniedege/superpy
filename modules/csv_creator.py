@@ -12,8 +12,8 @@ from random import shuffle
 import csv
 from datetime import timedelta
 import os
-from .functions import string_to_date, clear_console, read_system_date, get_today
-from .const import GROCERY_NAMES, check_data_files, BOUGHT_HEADER, SOLD_HEADER, logo
+from .functions import string_to_date, read_system_date, get_today
+from .const import GROCERY_NAMES, check_data_files, BOUGHT_HEADER, SOLD_HEADER, logo, clear_console
 
 
 DATA_DIR = 'modules/csv_data_test'

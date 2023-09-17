@@ -2,7 +2,7 @@
 import chime
 import time
 import json
-from .const import SETTINGS
+from .const import SETTINGS, logo, clear_console
 from prettytable import PrettyTable
 
 
@@ -123,5 +123,7 @@ def display_config():
     x = PrettyTable()
     x.field_names = clean_header(current_config)
     x.add_row(current_config.values())
-    print('\nCurrent configuration:')
+    clear_console()
+    logo(pause=False)
+    print('Current configuration:\n')
     print(x.get_string(fields=[c for c in x.field_names if 'advance' not in c.lower()]),'\n')

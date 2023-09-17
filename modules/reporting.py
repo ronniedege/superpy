@@ -1,7 +1,7 @@
 import pandas as pd
 from tabulate import tabulate
-from .functions import read_system_date, get_bought_ids, clear_console, validate_dates, date_to_string
-from .const import BOUGHT_CSV, logo, SOLD_CSV, set_export_data
+from .functions import read_system_date, get_bought_ids, validate_dates, date_to_string
+from .const import BOUGHT_CSV, logo, SOLD_CSV, set_export_data, clear_console
 from datetime import timedelta
 from .config import ui_sounds, statement_printer
 import sys

@@ -17,21 +17,21 @@ A user friendly command-line tool for tracking supermarket inventory and providi
 Clone project from Github and install requirements via pip
 
 ```bash
-pip install requirements.txt
+pip install -r requirements.txt
 ```
     
 ## Usage/Examples
 
-To run the program, always enter python or python3 at the start of the command, followed by the script name and then followed by the options. To access the help use:
+To run the program, always enter python at the start of the command, followed by the script name and then followed by the options. To access the help use:
 
 ```bash
-python3 super.py -h
+python super.py -h
 ```
 ### Main functions
 
 The program supports the following main functions:
 
-- `advance_time` | Advancing the system date
+- `shift` | Advancing (shifting) the system date
 - `reset` | Resetting the system date to the current date
 - `config` | Change and view the current app's configuration
 - `testdata` | Generate bought and sold data for test purposes
@@ -42,44 +42,53 @@ The program supports the following main functions:
 To get help for one of these functions use the `-h` flag, example:
 
 ```bash
-python3 super.py sell -h
+python super.py sell -h
 ```
 
 ### Advancing the system date
 
-Use this option to move the date to a day in the future (by the given amount of days) by using the `advance_time` argument combined with the `--days` flag. To advance the current system date with, for example, 10 days, use:
+Use this option to move the date to a day in the future (by the given amount of days or the given date) by using the `shift` argument combined with the `-a` | `--amount`  or `-d` | `--date` flag. To advance the current system date with, for example, 10 days, use:
 
 ```bash
-python3 super.py advance_time --days 10
+python super.py shift -a 10
 ```
 
-The amount of days has to be passed as integer and must be greater then `0`. After a successful operation the new system date will be shown in the confirmation message. 
+or
+
+```bash
+python super.py shift -d 2023-10-01
+```
+
+The amount of days has to be passed as integer and must be greater then `0`. The date has to be passed as YYYY-MM-DD and has to be equal to or greater then the current date. 
+
+After a successful operation the new system date will be shown in the confirmation message. 
 
 ### Resetting the system date
 
-To reset the system date to the current date use the `reset` argument combined with the `--date` flag. When the system date is unequal to the current date the date will be reset and a confirmation is shown. 
+To reset the system date to the current date use the `reset` argument combined with the `-d` | `--date` flag. When the system date is unequal to the current date the date will be reset and a confirmation is shown. 
 
 ```bash
-python3 super.py reset --date
+python super.py reset -d
 ```
 
 ### Buying an item
 
 For buying a product the `buy` argument is used together with the following mandatory parameters:
 
-- `--product_name` | String. For items containing spaces, use double quotes
-- `--price` | The buying price as float
-- `--expiration_date` | YYYY-MM-DD. The date must be greater then the current system date
+- `-n`, `--product_name` | String. For items containing spaces, use double quotes
+- `-p`, `--price` | The buying price as float
+- `-e`, `--expiration_date` | YYYY-MM-DD. The date must be greater then the current system date
+- `-a`, `--amount` | Integer. Optional parameter to enter the amount of products to be bought. Defaults to 1
 
 Example for buying a product:
 
 ```bash
-python3 super.py buy --product_name banana --price 3.99 --expiration_date 2023-10-30
+python super.py buy -n banana -p 3.99 -e 2023-10-30 -a 10
 ```
 
 Confirmation (success):
 ```bash
-===> The following item has successfully been added to the database:
+===> The following item has successfully been added to the database 10 time(s):
 
 +--------------+------------+-------+-----------------+
 | Product name |   Buy date | Price | Expiration date |
@@ -93,18 +102,19 @@ Confirmation (success):
 
 To sell an item the `sell` argument is used in combination with the following mandatory parameters:
 
-- `--product_name` | String. For items containing spaces, use double quotes
-- `--price` | The selling price as float
+- `-n`, `--product_name` | String. For items containing spaces, use double quotes
+- `-p`, `--price` | The selling price as float
+- `-a`, `--amount` | Integer. Optional parameter to enter the amount of products to be sold. Defaults to 1
 
 Example for selling a product:
 
 ```bash
-python3 super.py sell --product_name banana --price 7.43
+python super.py sell -n banana -p 7.43 -a 5
 ```
 
 Confirmation (success):
 ```bash
-===> The following item has successfully been registered as a sale:
+===> The following item has successfully been registered as a sale 5 time(s):
 
 +--------------+------------+------------+
 | Product name |  Sell date | Sell price |
@@ -127,28 +137,28 @@ Optional exports will be saved as csv files in the *export* directory of the pro
 
 To get the inventory report use either one of the following three arguments in combination with the `inventory` argument:
 
-- `--now` | The inventory now, based on the current system date
-- `--yesterday` | Yesterday's inventory, based on the current system date
-- `--date` | An inventory report on a custom date formatted as YYYY-MM-DD
+- `-n`, `--now` | The inventory now, based on the current system date
+- `-y`, `--yesterday` | Yesterday's inventory, based on the current system date
+- `-d`, `--date` | An inventory report on a custom date formatted as YYYY-MM-DD
 
 The following optional arguments can be added to the command:
 
-- `--export` | Exports the report data to a csv file
-- `--product` | Optional product filter to get details about the given product
+- `-e`, `--export` | Exports the report data to a csv file
+- `-p`, `--product` | Optional product filter to get details about the given product
 
 Example inventory report command with optional export argument
 
 ```bash
-python3 super.py report inventory --now --export
+python super.py report inventory -n -e
 ```
 
 #### Revenue
 
 To generate a revenue report the start and end date must be provided as arguments in combination with the `revenue` argument. Overview:
 
-- `--start` | The mandatory start date of the report as YYYY-MM-DD
-- `--end` | The mandatory end date of the report as YYYY-MM-DD. Must be greater then or equal to the start date
-- `--export` | Optional argument to export the report data to a csv file
+- `-f`, `--first` | The mandatory start date of the report as YYYY-MM-DD
+- `-l`, `--last` | The mandatory end date of the report as YYYY-MM-DD. Must be greater then or equal to the start date
+- `-e`, `--export` | Optional argument to export the report data to a csv file
 
 The report will show the total revenue per product and the total revenue per day, within the given time frame. 
 
@@ -157,16 +167,16 @@ The optional export contains all raw data from within the given time frame. No g
 Example command for generating a revenue report:
 
 ```bash
-python3 super.py report revenue --start 2023-07-01 --end 2023-08-20
+python super.py report revenue -f 2023-07-01 -l 2023-08-20
 ```
 
 #### Profit
 
 To generate a profit report the start and end date must be provided as arguments in combination with the `profit` argument. Overview:
 
-- `--start` | The mandatory start date of the report as YYYY-MM-DD
-- `--end` | The mandatory end date of the report as YYYY-MM-DD. Must be greater then or equal to the start date
-- `--export` | Optional argument to export the report data to a csv file
+- `-f`, `--first` | The mandatory start date of the report as YYYY-MM-DD
+- `-l`, `--last` | The mandatory end date of the report as YYYY-MM-DD. Must be greater then or equal to the start date
+- `-e`, `--export` | Optional argument to export the report data to a csv file
 
 The generated report gives an overview in two perspectives:
 
@@ -176,7 +186,7 @@ The generated report gives an overview in two perspectives:
 Example command for generating a profit report:
 
 ```bash
-python3 super.py report profit --start 2023-07-01 --end 2023-08-08
+python super.py report profit -f 2023-07-01 -l 2023-08-08
 ```
 
 ### Change and view the app's configuration
@@ -184,7 +194,19 @@ python3 super.py report profit --start 2023-07-01 --end 2023-08-08
 Some of the app's configuration can be manually set to the preferred value by using the `config` argument. Use the `-h` flag to get more info. To show the app's current configuration use: 
 
 ```bash
-python3 super.py config --show 
+python super.py config -s
+```
+
+result:
+
+```bash
+Current configuration:
+
++-------+-------------+---------+-------------------+----------------+
+| Sound | Sound theme | Printer | Enable date alert | Validate names |
++-------+-------------+---------+-------------------+----------------+
+|  True |   material  |   True  |        True       |      True      |
++-------+-------------+---------+-------------------+----------------+ 
 ```
 
 The following options are available:
@@ -196,7 +218,7 @@ The following options are available:
 
 #### Sound
 
-Use `--enable` to enable audiovisual feedback and `--disable` for disabling it. The `--theme` flag can be used to set the sound theme. Available themes:
+Use `-e` | `--enable` to enable audiovisual feedback and `-d` | `--disable` for disabling it. The '`-t`, | `--theme` flag can be used to set the sound theme. Available themes:
 
 - `big-sur`
 - `chime`
@@ -209,52 +231,52 @@ Use `--enable` to enable audiovisual feedback and `--disable` for disabling it. 
 Example to set the theme to zelda:
 
 ```bash
-python3 super.py config sound --theme zelda
+python super.py config sound -t zelda
 ```
 
 #### Printer
 
-Via this option the way information in the terminal is printed can be set. When enabled text is printed character by character instead of instantly.  By default this option is enabled but it can be turned off by using the `--disable` flag. It can be enabled again by the `--enable` option. 
+Via this option the way information in the terminal is printed can be set. When enabled text is printed character by character instead of instantly.  By default this option is enabled but it can be turned off by using the `-d`, | `--disable` flag. It can be enabled again by the `-e`, | `--enable` option. 
 
 Example:
 
 ```bash
-python3 super.py config printer --enable
+python super.py config printer --enable
 ```
 
 
 #### Alert
 
-When the system date is unequal to the current date an alert will be triggered before selling or buying an item. When enabled the user is asked for confirmation to proceed, or reset the date when dates are unequal. This alert can be disabled by using `--disable` for disabling it, or `--enable` to enable it again. 
+When the system date is unequal to the current date an alert will be triggered before selling or buying an item. When enabled the user is asked for confirmation to proceed, or reset the date when dates are unequal. This alert can be disabled by using `-d`, | `--disable` for disabling it, or `-e`, | `--enable` to enable it again. 
 
 Example:
 
 ```bash
-python3 super.py config alert --disable
+python super.py config alert -d
 ```
 
 #### Validate
 
 When enabled the validate function will compare the product name entered with items in the grocery database and the previously bought items to prevent typos. For example, when a product named *apple* already exists the program will prompt, *did you mean apple?*, when trying to sell a product named *apples*. 
 
-Use `--enable` or `--disable` to either turn the function on or off. Example:
+Use `-e`, | `--enable` or `-d`, | `--disable` to either turn the function on or off. Example:
 
 ```bash
-python3 super.py config validate --enable
+python super.py config validate -e
 ```
 
 ### Generate test data files 
 
 This option is for test purposes only. It generates a bought.csv and sold.csv file and can be customized by the following arguments:
 
-- `--startdate` | Sets the start date for the csv files (YYYY-MM-DD)
-- `--rows` | Sets the amount of rows the bought.csv file should have
-- `--items` | Provide the number of unique product names. 
+- `-s`, `--startdate` | Sets the start date for the csv files (YYYY-MM-DD)
+- `-r`, `--rows` | Sets the amount of rows the bought.csv file should have
+- `-i`, `--items` | Provide the number of unique product names. 
 
 Based on the given arguments the files will be generated and saved in the *modules/csv_data_test* folder. After each run previously generated files will be overwritten. Both files can be manually moved to the *data* directory. Example command:
 
 ```bash
-python3 super.py testdata --startdate 2023-07-01 --rows 7000 --items 75
+python super.py testdata -s 2023-07-01 -r 7000 -i 75
 ```
 
 Output:

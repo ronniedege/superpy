@@ -28,8 +28,8 @@ def main():
     check_advance_time()
 
     # advance time functions
-    if cli.command == 'advance_time':
-        advance_time(cli.days, cli.date)
+    if cli.command == 'shift':
+        advance_time(cli.amount, cli.date)
     elif cli.command == 'reset':   
         if cli.date:
             today = string_to_date(get_today())
@@ -81,11 +81,11 @@ def main():
 
         # revenue report 
         elif cli.report == 'revenue':
-            get_revenue_report(start_date=cli.start, end_date=cli.end, export=cli.export, file_type=cli.type)
+            get_revenue_report(start_date=cli.first, end_date=cli.last, export=cli.export, file_type=cli.type)
 
         # profit report 
         elif cli.report == 'profit':
-            get_profit_report(start_date=cli.start, end_date=cli.end, export=cli.export, file_type=cli.type)    
+            get_profit_report(start_date=cli.first, end_date=cli.last, export=cli.export, file_type=cli.type)    
 
 if __name__ == "__main__":
     main()
